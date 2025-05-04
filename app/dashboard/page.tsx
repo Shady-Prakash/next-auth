@@ -1,8 +1,19 @@
-import React from 'react'
+import React from "react";
+import { auth, signOut } from "../../auth";
 
-const page = () => {
+const page = async () => {
+  const session = await auth();
+  console.log("SESSION", JSON.stringify(session));
+
   return (
-    <div>dashboard</div>
+    <div>
+      <form action={async () => {
+        "use server";
+        await signOut();
+      }}>
+        <button type="submit">Sign out</button>
+      </form>
+    </div>
   )
 }
 
