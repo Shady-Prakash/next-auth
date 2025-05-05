@@ -2,15 +2,15 @@ import React from "react";
 import { auth, signOut } from "../../auth";
 
 const page = async () => {
+
   const session = await auth();
-  console.log("SESSION", JSON.stringify(session));
 
   return (
     <div>
       {JSON.stringify(session)}
       <form action={async () => {
         "use server";
-        await signOut();
+        await signOut({ redirectTo: "/auth/login", redirect: true });
       }}>
         <button type="submit">Sign out</button>
       </form>
