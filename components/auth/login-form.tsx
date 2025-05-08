@@ -74,9 +74,8 @@ export const LoginForm = () => {
             form.resetField('code')
           }
         })
-          // .catch(() => {
-          //   console.log(error)
-          //   setError("Something went wrong!");
+          // .catch((error) => {
+          //   setError(error ? "Something went wrong!" : " ");
           // })
     });
   }
