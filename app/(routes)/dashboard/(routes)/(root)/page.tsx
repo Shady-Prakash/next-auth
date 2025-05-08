@@ -7,7 +7,10 @@ const DashboardPage = () => {
 
   return (
     <>
-     {JSON.stringify(user)}
+    <h1 className="font-bold">Dashboard Page</h1>
+     <div className="space-y-3">
+      {JSON.stringify(user)}
+     </div>
     </>
   )
 }

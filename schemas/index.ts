@@ -38,4 +38,8 @@ export const NewPasswordSchema = z.object({
 }).refine((values) => values.password === values.confirmPassword, {
   message: "Password does not match",
   path: ['confirmPassword'],
-});;
+});
+
+export const SettingsSchema = z.object({
+  name: z.optional(z.string())
+})

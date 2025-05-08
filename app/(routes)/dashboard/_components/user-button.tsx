@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { logout } from "@/actions/logout";
 
 import { LogOut, User } from "lucide-react";
+import { redirect } from "next/navigation";
 
 interface UserProps {
   user?: ExtendedUser,
@@ -21,6 +22,10 @@ const UserButton = (
 
   const clickHandler = () => {
     logout();
+  }
+
+  const profileHandler = () => {
+    redirect('/dashboard/profile')
   }
 
   const getUserInitials = (name = ' ') => {
@@ -36,7 +41,7 @@ const UserButton = (
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Avatar className="cursor-pointer">
             <AvatarImage src={user?.image || " "} />
             <AvatarFallback className="bg-slate-500">
@@ -47,9 +52,9 @@ const UserButton = (
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-40" align="end">
-          <DropdownMenuItem className="cursor-pointer text-xs font-semibold text-slate-500 hover:text-slate-600">
+          <DropdownMenuItem className="cursor-pointer text-xs font-semibold text-slate-500 hover:text-slate-600" onClick={profileHandler}>
             <User className="h-4 mr-1 hover:text-slate-600" />
-            My Profile
+              My Profile
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={clickHandler} className="cursor-pointer text-xs font-semibold text-slate-500 hover:text-slate-600">

@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart, Compass, Layout, List, UserCog} from "lucide-react";
+import { BarChart, Layout, Settings, UserCog} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
@@ -9,37 +9,37 @@ const guestRoutes = [
   {
     icon: Layout,
     label: "Dashboard",
-    href: "/"
+    href: "/dashboard"
   },
   {
-    icon: Compass,
-    label: "Browse",
-    href: "/search"
+    icon: Settings,
+    label: "Settings",
+    href: "#"
   },
 ];
 
 const adminRoutes = [
   {
-    icon: List,
-    label: "Courses",
-    href: "/admin/courses"
+    icon: UserCog,
+    label: "Admin",
+    href: "/dashboard/admin/server"
   },
   {
     icon: BarChart,
     label: "Analytics",
-    href: "/admin/analytics"
+    href: "/dashboard/admin/analytics"
   },
   {
-    icon: UserCog,
-    label: "Users",
-    href: "#"
+    icon: Settings,
+    label: "Settings",
+    href: "/dashboard/admin/settings"
   },
 ]
 
 export const SidebarRoutes = () => {
   const pathname = usePathname();
 
-  const isAdminPage = pathname?.includes("/admin");
+  const isAdminPage = pathname?.includes("/dashboard/admin");
   
   const routes = isAdminPage ? adminRoutes : guestRoutes;
 
