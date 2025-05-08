@@ -1,38 +1,23 @@
 "use client";
 
-import { logout } from "@/actions/logout";
-import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 
+import UserButton from "@/app/(protected)/dashboard/_components/user-button";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 import { SearchInput } from "./search-input";
 
 export const NavbarRoutes = () => {
-  const session = useSession();
   const pathname = usePathname();
 
   const isAdminPage = pathname?.startsWith("/admin");
   const isCoursePage = pathname?.includes("/courses");
   const isSearchPage = pathname === "/search";
 
-  console.log(JSON.stringify(session))
-  
-  const clickHandler = () => {
-    logout();
-  }
-
+  const user = useCurrentUser();
 
   return (
     <>
@@ -52,23 +37,11 @@ export const NavbarRoutes = () => {
         ) : (
           <Link href="/admin/courses">
             <Button size="sm" variant="ghost">
-              Admin mode
+             {`${user?.role ==="ADMIN" ? "Admin": user?.role==="SUPER_ADMIN" ? "Super Admin" : "User"} mode`}
             </Button>
           </Link>
         )}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>PM</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={clickHandler}>Log out</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <UserButton user={user}/>
       </div>
     </>
   )
