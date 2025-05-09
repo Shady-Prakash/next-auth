@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import { SessionProvider } from "next-auth/react";
+import { Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
-// import { auth } from "@/auth";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,8 +22,10 @@ export default async function RootLayout({
       <body
         className={inter.className}
       >
-        <Toaster/>
-        {children}
+        <Suspense>
+          <Toaster/>
+          {children}
+        </Suspense>
       </body>
     </html>
   );
