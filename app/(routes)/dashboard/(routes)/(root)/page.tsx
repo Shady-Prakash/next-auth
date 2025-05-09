@@ -4,6 +4,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 
 const DashboardPage = () => {
   const user = useCurrentUser();
+  console.log(user)
 
   return (
     <>
