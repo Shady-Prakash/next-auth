@@ -1,7 +1,6 @@
 "use server";
 
 import * as z from "zod";
-import { AuthError } from "next-auth";
 
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
@@ -113,9 +112,11 @@ export const login = async (
       password,
       redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     })
-  } catch (error ) {
-    if (error instanceof AuthError) {
-      switch(error.type) {
+  } catch (error) {
+    if (typeof error === "object" && error !== null && "type" in error && typeof (error).type === "string") {
+      const errType = (error as { type: string }).type;
+      
+      switch(errType) {
         case "CredentialsSignin":
           return { error: "Invalid credentials!" }
         default:
